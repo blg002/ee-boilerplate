@@ -1,0 +1,21 @@
+{embed="includes/.header"
+{exp:channel:entries limit="1" disable="{snip_disable}"}
+	page_title="{title}"
+{/exp:channel:entries}
+}
+
+{embed="includes/.sub"}
+
+<div id="main" class="hfeed" role="main">
+	<div class="article hentry">
+	{exp:channel:entries limit="1" disable="{snip_disable}"}
+		<h1 class="entry-title">{title}</h1>
+		<div class="entry-content">
+			{body}
+		</div><!-- /.entry-content -->
+	{/exp:channel:entries}
+	</div><!-- /.hentry -->
+</div><!-- /#main -->
+
+{embed="includes/.complementary"}
+{embed="includes/.footer"}

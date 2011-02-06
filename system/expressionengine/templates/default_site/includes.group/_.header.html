@@ -1,0 +1,24 @@
+<title>{if embed:page_title}{embed:page_title}{if:else}Company Full Name{/if} | {site_name}</title>
+
+<link href="{path='stylesheets/styles'}" rel="stylesheet" />
+<link href="{stylesheet=stylesheets/print}" rel="stylesheet" media="print" />
+
+<link rel="alternate" type="application/rss+xml" title="News" href="{site_url}feeds/news.xml" />
+<link rel="search" type="application/opensearchdescription+xml" title="GMA Search" href="{site_url}search.xml" />
+<link rel="home" href="{site_url}" title="Home page" />
+<script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+
+<body id="{if segment_1}{segment_1}{if:else}home{/if}"{if segment_1} class="subpage"{/if}>
+
+{if logged_in && member_group == "1"}
+    <div style="position:absolute;top:0;left:0;position:fixed;background-color:#000;color:#fff; font-size:9px;padding:5px;">
+        {elapsed_time} seconds / {total_queries} queries
+    </div>
+{/if}
+
+<h1 id="logo"><a href="/" title="Back to the {site_name} homepage" rel="home"><img src="/fw/company-logo.png" width="" height="" alt="Company" /></a></h1>
+
+{embed="includes/.nav"}
+
+<div id="core">
+	{if segment_1}{embed="includes/.breadcrumbs"}{/if}

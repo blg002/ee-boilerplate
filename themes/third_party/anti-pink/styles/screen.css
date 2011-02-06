@@ -1,0 +1,217 @@
+a:hover {
+	color: #2d98db;
+}
+
+a:focus {
+	color:					#2d98db;
+}
+
+table a:hover {
+	color:					#2d98db;
+}
+
+.pageContents a:link,
+.pageContents a:visited {
+	color:					#2d98db;
+}
+
+.cp_button a:hover {
+	background:				#2d98db;
+}
+
+.notice {
+	color:				#2d98db;
+}
+
+em.alert {
+	color:				#2d98db;
+}
+
+.failure {
+	color:				#2d98db;
+}
+
+.submit {
+	background-color: #2d98db;
+}
+
+.less_important_bttn:hover,
+.rightNav a.submit:hover {
+	background-color:#2d98db;
+}
+.rightNav a.submit:hover {
+	color: #2d98db !important;
+}
+#navigationTabs li a.first_level:hover {
+	color:				#2d98db;
+}
+
+#navigationTabs li.active a.first_level,
+#navigationTabs li:active a.first_level {
+	background-color: #2d98db;
+}
+
+#navigationTabs li #addQuickTab,
+#navigationTabs li #addQuickTab:link {
+	color:				#2d98db;
+}
+#navigationTabs li li.hover,
+#navigationTabs ul li li.hover {
+	background:			#2d98db;
+}
+
+#navigationTabs li li.parent:focus, #navigationTabs li li.parent.active {
+	background-color: #2d98db;
+}
+
+#activeSite a:hover {
+	color:				#2d98db;
+}
+
+#sideBar a {
+	color:				#2d98db;
+}
+
+#sideBar li a:link, #sideBar li a:visited {
+	color:				#2d98db;
+	border-bottom:		1px solid #2d98db;
+}
+
+#sideBar li a:hover {
+	color:				#2d98db;
+	border-bottom:		1px solid #2d98db;
+}
+
+#activeUser {
+	background-color: #2d98db;
+}
+
+#breadCrumb a:link, #breadCrumb a:visited {
+	color:				#2d98db;
+}
+
+#breadCrumb li.last {
+	color:#2d98db;
+}
+
+#breadCrumb a:hover {
+	color:				#2d98db;
+}
+.pageContents form em {
+	color:#2d98db;
+	}
+
+.contentMenu li a:hover {
+	border-bottom:		1px solid #2d98db;
+	color:				#2d98db;
+}
+
+.contentMenu ul.submenu li a:hover {
+	color:				#2d98db;
+	border-bottom:		1px solid #2d98db;
+}
+
+#filterMenu a, #filterMenu a:link, #filterMenu a:visited {
+	color:#2d98db;
+}
+
+table.mainTable thead {
+	background-color:	#2d98db;
+}
+
+#mainContent .formArea .formHeading .newTemplate {
+	background-color: #2d98db;
+}
+
+.bad_path_error_list li {
+	color:#2d98db;
+}
+
+#checksumFailure {
+	color:#2d98db;
+}
+
+.menu_list li a:hover,
+.member_profile_themes li a:hover, .wiki_themes li a:hover, 
+.forum_themes li a:hover, .translation_files li a:hover {
+	color:				#2d98db;
+}
+
+#templateGroups .groupList li a.templateGroupName:hover {
+	color:				#2d98db;
+}
+
+span.defaultIndicator {
+	color:				#2d98db;
+}
+
+#templateGroups span.defaultGroupName {
+	color:				#2d98db;
+}
+a.view_link:hover,
+a.delete_link:hover,
+a.show_prefs_link:hover,
+a.show_access_link:hover,
+a.less_important_link:hover {
+	color:#2d98db;
+	}
+
+.status_closed {
+	color:				#2d98db;
+}
+
+#mainContent .tab_menu li.highlight_tab {
+	background:			#2d98db;
+}
+
+#mainContent #publishForm .tab_menu li.addTabButton a {
+	color: 					#2d98db;
+}
+.publish_field a:hover {
+	color:	#2d98db;
+	}
+
+#sub_hold_field_category a.edit_categories_link {
+  color:#2d98db;
+}
+
+a#refresh_categories {
+  color:#2d98db;
+}
+
+.publish_field .required {
+	color: 				#2d98db;
+}
+.glossary_content li a:hover {
+	color:	#2d98db;
+}
+
+#mainContent #file_manager #showToolbarLink a {
+	color:				#2d98db !important;
+}
+input.submit,
+#mainContent .formArea .formHeading .newTemplate a{
+    border:1px solid #0060BF !important;
+    background: #006DD9 !important;
+    background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#0079F3), to(#006DD9)) !important; 
+    background-image:-moz-linear-gradient(top, #0079F3, #006DD9) !important; 
+
+}
+button[type=submit], .btn.submit{
+	background:#006BEE !important; /* override EE */
+	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#006BEE), to(#0054BA)) !important;
+	background-image:-moz-linear-gradient(top, #006BEE, #0054BA) !important;
+	border:1px solid #0054BA !important;
+	border-bottom-color:#0048A1 !important;
+	text-shadow: 0 -1px 0 #0048A1 !important;
+	
+}
+#accessoryTabs li a:link,
+#accessoryTabs li a:visited{
+    color:#006DD9 !important;
+}
+#activeUser{
+    border-bottom:1px solid #0060BF !important;
+    border-top:1px solid #0080FF !important;
+
+}

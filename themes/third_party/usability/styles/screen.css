@@ -1,0 +1,26 @@
+textarea, textarea.markItUpEditor, input[type="text"], input[type="password"] {
+	color: #222;
+	font-family: monospace;
+	font-size: 12px;
+}
+
+#mainContent .field {
+	width: 99% !important;
+}
+
+#publishForm input, .publish_textarea textarea {
+	font-family: Arial, sans-serif;
+}
+
+.publish_field label, #publish_tab .publish_checkbox legend {
+	cursor: pointer;
+}
+
+a {
+	outline: none;
+}
+
+.publish_field .handle {
+	background: url(/themes/third_party/usability/images/field-handle.png) no-repeat left center;
+	cursor: move;
+}
