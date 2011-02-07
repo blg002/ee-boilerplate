@@ -1,12 +1,10 @@
 /*	=Dynamic {!-- EE comments used to clean up whitespace in output --}
 ------------------------------------ */
-/* panel images */
-{exp:channel:entries channel="feature" orderby="feature_order" sort="asc" dynamic="no" disable="{snip_disable}"}{!--
---}#panel-{count}{if {count} == "1"}, #panel-1dupe{/if}{if {count} == "5"}, #panel-5dupe{/if} { background-image:url({feature_image}); }
+/* feature */
+{exp:channel:entries channel="feature" dynamic="no" disable="{snip_disable}"}{!--
+--}#panel-{url_title} { background-image:url({feature_image}); }
 {/exp:channel:entries}
-
-/* header images | subpage preview */
-{exp:channel:entries channel="static-content" dynamic="no" disable="{disable}"}{!--
----}{preview}{exp:imgsizer:size src="{preview_image}" width="114" height="89"}
-#sp-{url_title} span { background-image:url({sized}); }{/exp:imgsizer:size}
+/* preview */
+{exp:channel:entries channel="preview" dynamic="no" disable="{snip_disable}"}{!--
+--}#preview-{url_title} a {exp:imgsizer:size src="{preview_image}" width="75" height="75"}{ background-image:url({sized}); }{/exp:imgsizer:size}
 {/exp:channel:entries}

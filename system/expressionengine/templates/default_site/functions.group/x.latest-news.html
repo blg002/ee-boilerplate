@@ -1,0 +1,14 @@
+<div id="latest-news" class="section hfeed">
+	<h2><a href="/news/">Latest News</a></h2>
+	{exp:channel:entries channel="news" limit="4" dynamic="no" disable="{snipp_disable}"}
+	<div class="article hentry">
+		<h4><a href="{page_url}" class="entry-title" rel="bookmark">{title}</a></h4>
+		<p class="published updated">
+			<time datetime="{entry_date format="{snip_date_title}"}">{entry_date format="{snip_date}"}
+				<span title="{entry_date format="{snip_date_title}"}" class="value-title"></span>
+			</time>
+		</p>
+	</div>
+	{/exp:channel:entries}
+	<p class="more"><a href="/news/archive/">News Archive</a></p>
+</div><!-- /#latest-news -->
