@@ -9,7 +9,7 @@ These files can be found at <code><a href="https://github.com/blg002/ee-framewor
 ## Add-ons
 The commercial add-ons are not included for obvious reasons, but I do provide hand links!
 
-These files can be found at `<a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party">/system/expressionengine/third_party/</a>` while the theme files are at `<a href="https://github.com/blg002/ee-framework/tree/master/themes/third_party">/themes/third_party/</a>`, with the exception of the Solspace themes files at `<a href="https://github.com/blg002/ee-framework/tree/master/themes">/themes/solspace_themes/</a>`.
+These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party">/system/expressionengine/third_party/</a></code> while the theme files are at <code><a href="https://github.com/blg002/ee-framework/tree/master/themes/third_party">/themes/third_party/</a></code>, with the exception of the Solspace themes files at <code><a href="https://github.com/blg002/ee-framework/tree/master/themes">/themes/solspace_themes/</a></code>.
 
 ### C.R.E.A.M.
 * [Structure](http://devot-ee.com/add-ons/structure) ($65)
