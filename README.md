@@ -1,15 +1,15 @@
 # EE2 Framework
-A basic framework for a new EE2 install including template files, add-ons and a map of CP settings.
+A basic framework for a new EE2 install including template files, add-ons and a map of CP settings. 
 
-I'd recommend trying to create an 'Alpha' install with these components who can pull from for each new install. This will save you the time of manually doing this work.
+Note: Much of what's found here is probably highly-pointed to *my* needs, fell free to fork and customize away. Also, I'd recommend trying to create an 'Alpha' install with these components, who you can pull from, for each new install. This will save you the time of manually doing this work.
 
 ## Template Files
-The files can be found at `/system/expressionengine/templates/` upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
-
-I still need to clean these up a bit.
+These files can be found at `[/system/expressionengine/templates/defaul_site/](https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site)`. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
 
 ## Add-ons
-The files can be found at `/system/expressionengine/third_party/` while the theme files are at `/themes/third_party/` with the exception of the Solspace themes files at `/themes/solspace_themes/`.
+The commercial add-ons are not included for obvious reasons, but I do provide hand links!
+
+These files can be found at `[/system/expressionengine/third_party/](https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party)` while the theme files are at `[/themes/third_party/](https://github.com/blg002/ee-framework/tree/master/themes/third_party)`, with the exception of the Solspace themes files at `[/themes/solspace_themes/](https://github.com/blg002/ee-framework/tree/master/themes)`.
 
 ### C.R.E.A.M.
 * [Structure](http://devot-ee.com/add-ons/structure) ($65)
@@ -38,6 +38,6 @@ The files can be found at `/system/expressionengine/third_party/` while the them
 ## Settings
 TO DO
 
-## Further Reading
+## Related Reading
 * [Apply the DRY Principle to Build Websites With ExpressionEngine 2](http://net.tutsplus.com/tutorials/php/apply-the-dry-principle-to-build-websites-with-expressionengine-2/)
 * [ExpressionEngine on Multiple machines](http://www.viget.com/inspire/expressionengine-on-multiple-machines/)
