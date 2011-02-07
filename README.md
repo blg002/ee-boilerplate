@@ -4,12 +4,12 @@ A basic framework for a new EE2 install including template files, add-ons and a 
 Note: Much of what's found here is probably highly-pointed to *my* needs, fell free to fork and customize away. Also, I'd recommend trying to create an 'Alpha' install with these components, who you can pull from, for each new install. This will save you the time of manually doing this work.
 
 ## Template Files
-These files can be found at `[/system/expressionengine/templates/defaul_site/](https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site)`. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
+These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site">/system/expressionengine/templates/defaul_site/</a></code>. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
 
 ## Add-ons
 The commercial add-ons are not included for obvious reasons, but I do provide hand links!
 
-These files can be found at `[/system/expressionengine/third_party/](https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party)` while the theme files are at `[/themes/third_party/](https://github.com/blg002/ee-framework/tree/master/themes/third_party)`, with the exception of the Solspace themes files at `[/themes/solspace_themes/](https://github.com/blg002/ee-framework/tree/master/themes)`.
+These files can be found at `<a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party">/system/expressionengine/third_party/</a>` while the theme files are at `<a href="https://github.com/blg002/ee-framework/tree/master/themes/third_party">/themes/third_party/</a>`, with the exception of the Solspace themes files at `<a href="https://github.com/blg002/ee-framework/tree/master/themes">/themes/solspace_themes/</a>`.
 
 ### C.R.E.A.M.
 * [Structure](http://devot-ee.com/add-ons/structure) ($65)
