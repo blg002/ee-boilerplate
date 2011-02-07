@@ -4,7 +4,7 @@ A basic framework for a new EE2 install including template files, add-ons and a 
 Note: Much of what's found here is probably highly-pointed to *my* needs, fell free to fork and customize away. Also, I'd recommend trying to create an 'Alpha' install with these components, who you can pull from, for each new install. This will save you the time of manually doing this work.
 
 ## Template Files
-These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site">/system/expressionengine/templates/defaul_site/</a></code>. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
+These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site">/system/expressionengine/templates/default_site/</a></code>. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html).
 
 ## Add-ons
 The commercial add-ons are not included for obvious reasons, but I do provide hand links!
