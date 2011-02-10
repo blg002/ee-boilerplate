@@ -28,7 +28,7 @@ These files can be found at <code><a href="https://github.com/blg002/ee-framewor
 * [P&T Field Pack](http://devot-ee.com/add-ons/pt-field-pack)
 * [P&T Switch](http://devot-ee.com/add-ons/pt-switch)
 * [Encaf 404 Email](http://devot-ee.com/add-ons/encaf-404-email)
-* [LG Addon Updater](http://devot-ee.com/add-ons/lg-addon-updater)
+* [NSM Addon Updater](http://devot-ee.com/add-ons/lg-addon-updater)
 * [CP Analytics](http://devot-ee.com/add-ons/cp-analytics)
 * [Usability](http://devot-ee.com/add-ons/usability)
 * [Draggable](http://devot-ee.com/add-ons/draggable)
