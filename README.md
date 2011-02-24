@@ -1,13 +1,13 @@
 # EE2 Framework
 A basic framework for a new EE2 install including template files, add-ons and a map of CP settings. 
 
-Note: Much of what's found here is probably highly-pointed to *my* needs, fell free to fork and customize away. Also, I'd recommend trying to create an 'Alpha' install with these components, who you can pull from, for each new install. This will save you the time of manually doing this work.
+Note: Much of what's found here is probably highly-pointed to *my* needs, fell free to fork and customize away. Also, I'd recommend trying to create an 'Alpha' install, with these components, who you can pull from for each new install. This will save you the time of manually doing this work.
 
 ## Template Files
 These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/templates/default_site">/system/expressionengine/templates/default_site/</a></code>. Upload then [sync](http://expressionengine.com/user_guide/cp/design/templates/synchronize_templates.html). You should also remove the 'x' at the beginning of any template files, these are to be [hidden templates](http://expressionengine.com/user_guide/templates/hidden_templates.html).
 
 ## Add-ons
-The commercial add-ons are not included for obvious reasons, but I do provide hand links!
+The commercial add-ons are not included for obvious reasons, but I do provide handy links!
 
 These files can be found at <code><a href="https://github.com/blg002/ee-framework/tree/master/system/expressionengine/third_party">/system/expressionengine/third_party/</a></code> while the theme files are at <code><a href="https://github.com/blg002/ee-framework/tree/master/themes/third_party">/themes/third_party/</a></code>, with the exception of the Solspace themes files at <code><a href="https://github.com/blg002/ee-framework/tree/master/themes">/themes/solspace_themes/</a></code>.
 
