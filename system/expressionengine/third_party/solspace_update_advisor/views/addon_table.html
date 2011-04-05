@@ -1,0 +1,107 @@
+<div id="solspace_update_advisor_container">
+	
+<?php if (empty($update_array)):?>
+	<h3><?=$lang_all_addons_up_to_date?></h3>
+	<br/>
+<?php else:?>
+
+<style type="text/css">	
+
+	#solspace_update_advisor_container p {
+		margin-bottom:10px;
+	}
+
+	#ss_addon_updates {
+		border-collapse:collapse;
+		margin-bottom:10px;
+	}
+
+	#ss_addon_updates th {
+		text-align:		left;
+		font-weight:	bold;
+		font-size:		95%;
+		color:			#5e6e70;
+		padding:		0 10px 3px 10px;
+		border-bottom:	2px solid #404C53;
+	}	
+	
+	#ss_addon_updates td {
+		text-align:		left;
+		padding:		5px 10px 5px 10px;
+		background-color:#26333b;
+		border-bottom:	1px solid #404C53;
+	}
+	
+	#ss_addon_updates a {
+		text-decoration:none;
+		font-weight:bold;
+	}
+	
+</style>
+
+<h4><?=$lang_update_header?>:</h4>
+<br/>
+
+<table id="ss_addon_updates">
+	<thead>
+		<tr>
+			<th><?=$lang_addon?></th>
+			<th><?=$lang_current_version?></th>
+			<th><?=$lang_installed_version?></th>
+			<th><?=$lang_date_updated?></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php foreach($update_array AS $update_data):?>
+		<tr>
+			<td><a href="<?=$update_data['download']?>"><?=$update_data['addon_title']?></a></th>
+			<td><?=$update_data['current_version']?></td>
+			<td><?=$update_data['installed_version']?></td>
+			<td><?=$update_data['date_updated']?></td>
+			<td><a href="<?=$update_data['docs']?>"><?=$lang_online_documentation?></a></td>
+			<td><a href="<?=$update_data['change_log']?>"><?=$lang_change_log?></a></td>
+		</tr>
+	<?php endforeach;?>
+	</tbody>
+</table>
+
+<?php endif;?>
+
+<?php if ($bridge_version):?>
+	<p><?=$lang_bridge_version?> <?=$bridge_version?></p>
+<?php endif;?>
+<?php
+
+//this is currently bugged and cannot work until an issue in 2.1.4 is fixed:
+//http://expressionengine.com/bug_tracker/bug/15214/
+
+/*
+
+<p><button class="submit" style="cursor:pointer;" id="solspace_update_advisor_refresh">Refresh Stats</button></p>
+
+<script type="text/javascript">
+	(function($){
+		$('#solspace_update_advisor_refresh').click(function(){
+
+			var $ssuac	= $('#solspace_update_advisor_container');
+			var $parent = $ssuac.parent();
+			
+			$ssuac.remove();
+			//$parent.append('<div id="ssuac_loader">Loading...</div>');
+			
+			$.ajax({
+			 	url: 		'<?=$refresh_url?>',
+			  	success: 	function(data){
+					$parent.find('#ssuac_loader').remove();
+					$parent.append(data);
+				},
+			  	dataType: 'html'
+			});
+		});
+	})(jQuery);
+</script>
+*/?>
+
+</div>

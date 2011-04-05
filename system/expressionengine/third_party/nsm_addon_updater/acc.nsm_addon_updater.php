@@ -4,7 +4,7 @@
  * NSM Addon Updater Accessory
  *
  * @package			NsmAddonUpdater
- * @version			1.0.1
+ * @version			1.1.0
  * @author			Leevi Graham <http://leevigraham.com> - Technical Director, Newism
  * @copyright 		Copyright (c) 2007-2010 Newism <http://newism.com.au>
  * @license 		Commercial - please see LICENSE file included with this distribution
@@ -26,7 +26,7 @@ class Nsm_addon_updater_acc
 	 *
 	 * @var string
 	 **/
-	var $version	 	= '1.0.1';
+	var $version	 	= '1.1.0';
 
 	/**
 	 * Description
@@ -87,42 +87,47 @@ class Nsm_addon_updater_acc
 
 				include PATH_THIRD . '/' . $addon_id . '/config.php';
 
-				foreach ($feed->channel->item as $version)
+				if(!empty($feed->channel->item))
 				{
-					$ee_addon = $version->children($namespaces['ee_addon']);
-					$version_number = (string)$ee_addon->version;
-
-					if(version_compare($version_number, $config['version'], '>') && version_compare($version_number, $latest_version, '>') )
+					foreach ($feed->channel->item as $version)
 					{
-						$versions[$addon_id] = array(
-							'addon_name' 		=> $config['name'],
-							'installed_version' => $config['version'],
-							'title' 			=> (string)$version->title,
-							'latest_version' 	=> $version_number,
-							'notes' 			=> (string)$version->description,
-							'docs_url' 			=> (string)$version->link,
-							'download' 			=> FALSE,
-							'created_at'		=> $version->pubDate,
-							'extension_class' 	=> $addon_id
-						);
+						$ee_addon = $version->children($namespaces['ee_addon']);
+						$version_number = (string)$ee_addon->version;
 
-						if($version->enclosure)
+						if(version_compare($version_number, $config['version'], '>') && version_compare($version_number, $latest_version, '>') )
 						{
-							$versions[$addon_id]['download'] = array(
-								'url' => (string)$version->enclosure['url'],
-								'type' =>  (string)$version->enclosure['type'],
-								'size' => (string)$version->enclosure['length']
+						    $latest_version = $version_number;
+							$versions[$addon_id] = array(
+								'addon_name' 		=> $config['name'],
+								'installed_version' => $config['version'],
+								'title' 			=> (string)$version->title,
+								'latest_version' 	=> $version_number,
+								'notes' 			=> (string)$version->description,
+								'docs_url' 			=> (string)$version->link,
+								'download' 			=> FALSE,
+								'created_at'		=> $version->pubDate,
+								'extension_class' 	=> $addon_id
 							);
 
-							if(isset($config['nsm_addon_updater']['custom_download_url']))
+							if($version->enclosure)
 							{
-								$versions[$addon_id]['download']['url'] = call_user_func($config['nsm_addon_updater']['custom_download_url'], $versions[$addon_id]);
+								$versions[$addon_id]['download'] = array(
+									'url' => (string)$version->enclosure['url'],
+									'type' =>  (string)$version->enclosure['type'],
+									'size' => (string)$version->enclosure['length']
+								);
+
+								if(isset($config['nsm_addon_updater']['custom_download_url']))
+								{
+									$versions[$addon_id]['download']['url'] = call_user_func($config['nsm_addon_updater']['custom_download_url'], $versions[$addon_id]);
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+
 		$EE->cp->load_package_js("accessory_tab");
 		$EE->cp->load_package_css("accessory_tab");
 
