@@ -1,10 +1,11 @@
 /*	=Dynamic {!-- EE comments used to clean up whitespace in output --}
 ------------------------------------ */
 /* feature */
-{exp:channel:entries channel="feature" dynamic="no" disable="{snip_disable}"}{!--
---}#panel-{url_title} { background-image:url({feature_image}); }
+{exp:channel:entries channel="feature" dynamic="no" disable="{s_disable}"}{!--
+--}#panel-{url_title} 
+{exp:ce_img:pair src="{feature_image}" width="710" height="200"}{ background-image:url({made}); }{/exp:ce_img:pair}
 {/exp:channel:entries}
 /* preview */
-{exp:channel:entries channel="preview" dynamic="no" disable="{snip_disable}"}{!--
---}#preview-{url_title} a {exp:imgsizer:size src="{preview_image}" width="75" height="75"}{ background-image:url({sized}); }{/exp:imgsizer:size}
+{exp:channel:entries channel="preview" dynamic="no" disable="{s_disable}"}{!--
+--}#preview-{url_title} a {exp:ce_img:pair src="{preview_image}" max="65"}{ background-image:url({made}); }{/exp:ce_img:pair}
 {/exp:channel:entries}

@@ -1,12 +1,12 @@
 <div id="related-news" class="mod aside hfeed">
 	<h3><a href="/news/">Related News</a></h3>
-	{exp:channel:entries channel="news" related_categories_mode="yes" custom_fields="yes" limit="3" dynamic="no" disable="{snip_disable}"}
+	{exp:channel:entries channel="news" related_categories_mode="yes" custom_fields="yes" limit="3" dynamic="no" disable="{s_disable}"}
 	<div class="article hentry">
 		<h4><a href="{page_uri}" class="entry-title">{title}</a></h4>
 		
 		<p class="published updated">
-			<time datetime="{entry_date format="{snip_date_title}"}">{entry_date format="{snip_date}"}
-				<span title="{entry_date format="{snip_date_title}"}" class="value-title"></span>
+			<time datetime="{entry_date format="{s_date_title}"}">{entry_date format="{s_date}"}
+				<span title="{entry_date format="{s_date_title}"}" class="value-title"></span>
 			</time>
 		</p>
 	</div>

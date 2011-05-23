@@ -5,9 +5,9 @@
  *
  * @package		Bridge:Expansion
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/
- * @version		1.1.5
+ * @version		1.1.7
  * @filesource 	./system/bridge/
  * 
  */
@@ -20,7 +20,6 @@
  *
  * @package 	Bridge:Expansion
  * @subpackage	Solspace:Add-On Builder
- * @category	None
  * @author		Solspace DevTeam
  * @link		http://solspace.com/docs/
  * @filesource 	./system/bridge/lib/addon_builder/addon_builder.php
@@ -37,8 +36,6 @@ else
 }
 
 class Addon_builder_bridge {
-	
-	public $bridge_version 		= '1.1.5';
 	                        	
 	public $cache				= array(); // Internal cache
 	                        	
@@ -78,6 +75,11 @@ class Addon_builder_bridge {
 	
 	//holder for the json object if ever
 	public $json;
+	
+	//for upper right link building
+	public $right_links			= array();
+	
+	private $upd;
     
     // --------------------------------------------------------------------
 
@@ -693,12 +695,18 @@ class Addon_builder_bridge {
 		
 		if (sizeof($this->module_preferences) == 0 && $this->database_version() !== FALSE)
 		{
-			if ( ! method_exists($this->data, 'get_module_preferences'))
+			if ( method_exists($this->actions(), 'module_preferences'))
+			{
+				$this->module_preferences = $this->actions()->module_preferences();
+			}
+			elseif ( method_exists($this->data, 'get_module_preferences'))
+			{
+				$this->module_preferences = $this->data->get_module_preferences();
+			}
+			else
 			{
 				return NULL;
 			}
-		
-			$this->module_preferences = $this->data->get_module_preferences();
 		}
 		
 		/** --------------------------------------------
@@ -722,6 +730,69 @@ class Addon_builder_bridge {
 	}
 	/* END preference() */
 
+
+	// --------------------------------------------------------------------
+		
+	/**
+	 * Checks to see if extensions are allowed
+	 *
+	 * 
+	 * @access	public
+	 * @return	bool	Whether the extensions are allowed
+	 */
+	 
+	function extensions_allowed()
+	{	
+		return $this->check_yes(ee()->config->item('allow_extensions'));
+	}
+	//END extensions_allowed	
+	
+	// --------------------------------------------------------------------
+		
+	/**
+	 * Checks to see if extensions are allowed
+	 *
+	 * 
+	 * @access	public
+	 * @return	bool	Whether the extensions are allowed
+	 */
+	 
+	function has_hooks()
+	{	
+		if ( ! is_object($this->upd) )
+		{
+			$class 			= $this->class_name . '_updater_base';
+	
+			$update_file 	= $this->addon_path . '/upd.' . $this->lower_name . '.base.php';
+		
+			if ( ! class_exists($class))
+			{
+				if (is_file($update_file))
+				{
+					require_once $update_file;
+				}
+				else
+				{
+					//techincally, this is false, but we dont want to halt something else because the
+					//file cannot be found that we need here. Needs to be a better solution
+					return FALSE;
+				}			 
+			}
+		
+			$this->upd	= new $class();
+		}
+				
+		//is it there? is it array? is it empty? Such are life's unanswerable questions, until now.
+		if ( ! isset($upd->hooks) OR ! is_array($upd->hooks) OR empty($upd->hooks) )
+		{
+			return FALSE; 
+		}
+		
+		return TRUE;
+	}
+	//end has hooks	
+		
+		
 	// --------------------------------------------------------------------
 		
 	/**
@@ -734,32 +805,8 @@ class Addon_builder_bridge {
 	 */
 	 
 	function extensions_enabled( $check_all_enabled = FALSE )
-	{
-		$class 			= $this->class_name . '_updater_base';
-		
-		$update_file 	= $this->addon_path . '/upd.' . $this->lower_name . '.base.php';
-		
-		if ( ! class_exists($class))
-		{
-			if (is_file($update_file))
-			{
-				require_once $update_file;
-			}
-			else
-			{
-				//techincally, this is false, but we dont want to halt something else because the
-				//file cannot be found that we need here. Needs to be a better solution
-				return TRUE;
-			}			 
-		}
-		
-		$upd	= new $class();
-		
-		//is it there? is it array? is it empty? Such are life's unanswerable questions, until now.
-		if ( ! isset($upd->hooks) OR ! is_array($upd->hooks) OR empty($upd->hooks) )
-		{
-			return TRUE; 
-		}
+	{		
+		if ( ! $this->has_hooks() ) return TRUE;
 		
 		$query = ee()->db->query(
 			"SELECT enabled 
@@ -864,6 +911,7 @@ class Addon_builder_bridge {
         /** --------------------------------------------*/
         
         $this->build_crumbs();
+        $this->build_right_links();
         
         /** --------------------------------------------
         /**  EE 1.x Code for Calling Certain CP Hooks
@@ -1464,9 +1512,9 @@ class Addon_builder_bridge {
 	 * @return	array
 	 */
     
-	function column_exists( $column, $table )
+	function column_exists( $column, $table, $cache = TRUE )
 	{		
-		if ( isset($this->cache['column_exists'][$table][$column]))
+		if ($cache === TRUE AND isset($this->cache['column_exists'][$table][$column]))
 		{
 			return $this->cache['column_exists'][$table][$column];
 		}
@@ -1830,7 +1878,50 @@ class Addon_builder_bridge {
 		}
 	}
 	/* END is_really_writable() */
+
+
+	// --------------------------------------------------------------------
+
+	/**
+	 *	Check Captcha
+	 *
+	 *	If Captcha is required by a module, we simply do all the work
+	 *
+	 *	@access		public
+	 *	@return		bool
+	 */
 	
+	function check_captcha()
+    {        
+		if ( ee()->config->item('captcha_require_members') == 'y'  || 
+			(ee()->config->item('captcha_require_members') == 'n' AND ee()->session->userdata['member_id'] == 0))
+		{
+			if ( empty($_POST['captcha']))
+			{
+				return FALSE;
+			}
+			else
+			{
+				$res = ee()->db->query("SELECT COUNT(*) AS count FROM exp_captcha
+										WHERE word='".ee()->db->escape_str($_POST['captcha'])."'
+										AND ip_address = '".ee()->db->escape_str(ee()->input->ip_address())."'
+										AND date > UNIX_TIMESTAMP()-7200");
+
+				if ($res->row('count') == 0)
+				{
+					return FALSE;
+				}
+
+				ee()->db->query("DELETE FROM exp_captcha
+								WHERE (word='".ee()->db->escape_str($_POST['captcha'])."' AND
+									   ip_address = '".ee()->db->escape_str(ee()->input->ip_address())."')
+								OR date < UNIX_TIMESTAMP()-7200");
+			}
+		}
+		
+		return TRUE;
+    }
+    /* END check_captcha() */	
 	
 	// --------------------------------------------------------------------
 
@@ -1858,26 +1949,19 @@ class Addon_builder_bridge {
         	
         	$hash = (isset($_POST['XID'])) ? $_POST['XID'] : $_GET['XID'];
         	
-            $query	= ee()->db->query(
-				"SELECT COUNT(*) AS count 
-				 FROM 	exp_security_hashes 
-            	 WHERE 	hash = '" . ee()->db->escape_str($hash) . "' 
-            	 AND 	ip_address = '" . ee()->db->escape_str(ee()->input->ip_address()) . "'
-				 AND	date > UNIX_TIMESTAMP()-7200"
-			);
+            $query = ee()->db->query("SELECT COUNT(*) AS count FROM exp_security_hashes
+            						  WHERE hash = '" . ee()->db->escape_str($hash) . "'
+            						  AND ip_address = '" . ee()->db->escape_str(ee()->input->ip_address()) . "'
+            						  AND date > UNIX_TIMESTAMP()-7200");
         
             if ($query->row('count') == 0)
             {
 				return FALSE;
 			}
                                 
-			ee()->db->query(
-				"DELETE FROM exp_security_hashes 
-				 WHERE 		 (	  hash = '".ee()->db->escape_str($hash)."' 
-				 			  AND ip_address = '" . ee()->db->escape_str(ee()->input->ip_address()) . "'
-				 ) 
-				 OR 		 date < UNIX_TIMESTAMP()-7200"
-			);
+			ee()->db->query("DELETE FROM exp_security_hashes
+							 WHERE (hash = '".ee()->db->escape_str($hash)."' AND ip_address = '" . ee()->db->escape_str(ee()->input->ip_address()) . "') 
+							 OR date < UNIX_TIMESTAMP()-7200");
         }
         
 		//	----------------------------------------
@@ -2360,7 +2444,7 @@ class Addon_builder_bridge {
 		//??
 		$return_data['current_page'] 	+= $input_data['offset'];
 
-		$return_data['sql'] 			.= 	' LIMIT ' . $return_data['pagination_page'] . 
+		$return_data['sql'] 			.= 	' LIMIT ' . ($return_data['pagination_page'] + $input_data['offset']) . 
 											', ' . $input_data['limit'];
 
 		return $return_data;
@@ -2555,5 +2639,47 @@ class Addon_builder_bridge {
 	}
 	// END either_or_strict
 
+	//---------------------------------------------------------------------
+
+	/**
+	 * add_right_link 
+	 * @access	public
+	 * @param	(string)	string of link name
+	 * @param	(string)	html link for right link
+	 * @return	(null)
+	 */
+	
+	function add_right_link($text, $link)
+	{	
+		//no funny business
+		if (REQ != 'CP') return;
+
+		$this->right_links[$text] = $link;
+	}
+	//end add_right_link
+
+	//---------------------------------------------------------------------
+
+	/**
+	 * build_right_links 
+	 * @access	public
+	 * @return	(null)
+	 */
+	
+	function build_right_links()
+	{	
+		//no funny business
+		if (REQ != 'CP' OR empty($this->right_links)) return;
+							
+		if (APP_VER < 2.0)
+		{
+			$this->cached_vars['right_links'] = $this->right_links;
+		}
+		else
+		{
+			ee()->cp->set_right_nav($this->right_links);
+		}
+	}
+	//end build_right_links
 }
 /* END Addon_builder Class */

@@ -63,18 +63,19 @@
 	<table border='0'  cellspacing='0' cellpadding='0' style='width:100%;' >
 		<tr>
 			<td class='crumbPad' ><span class='crumblinks'><?=$page_crumb;?></span></td>
-			<?php if ( isset($right_crumb_link) AND isset($right_crumb_msg) ): ?>
-				<?php for ($i = 0, $l= count($right_crumb_link); $i < $l; $i++) : ?>
+			<?php if ( isset($right_links) ): ?>
+				<?php $count = 0; 
+					foreach ($right_links as $right_word => $right_link) : ?>
 					<td  class='breadcrumbRight'  style='width:200px;' valign='bottom' align='right'>
-						<a href="<?php echo $right_crumb_link[$i]; ?>">
+						<a href="<?=$right_link?>">
 							<span onmouseout="navCrumbOff();" 
 								  onmouseover="navCrumbOn();" 
 								  onclick="navjump(this.href); this.blur();" 
-								  id="rcrumb<?php echo ($i > 0) ? $i + 1 : '';?>" 
-								  class="crumblinksR"><?php echo $right_crumb_msg[$i]; ?></span>
+								  id="rcrumb<?php echo ++$count;?>" 
+								  class="crumblinksR"><?=$right_word?></span>
 						</a>
 					</td>
-				<?php endfor;?>
+				<?php endforeach;?>
 			<?php else: ?>	
 				<td  class='breadcrumbRight'  style='width:200px;' valign='bottom' align='right'>
 					&nbsp;

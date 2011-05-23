@@ -5,9 +5,9 @@
  *
  * @package		Bridge:Expansion
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/
- * @version		1.1.5
+ * @version		1.1.7
  * @filesource 	./system/bridge/
  * 
  */
@@ -20,7 +20,6 @@
  *
  * @package 	Bridge:Expansion
  * @subpackage	Add-On Builder
- * @category	Extensions
  * @author		Solspace DevTeam
  * @link		http://solspace.com/docs/
  * @filesource 	./system/bridge/lib/addon_builder/extension_builder.php
@@ -37,8 +36,18 @@ else
 
 class Extension_builder_bridge extends Addon_builder_bridge {
 	
-	var $language   = array();
-    var $cur_used   = array();
+	public $settings			= array();
+	public $name				= '';
+	public $version				= '';
+	public $description			= '';
+	public $settings_exist		= 'n';
+	public $docs_url			= '';
+	public $default_settings	= array();	// The 'settings' field default
+	public $extension_defaults	= array();	// Defaults for the exp_extensions fields
+	public $hooks				= array();
+	
+	public $language			= array();
+    public $cur_used			= array();
     
     // --------------------------------------------------------------------
 
@@ -67,6 +76,18 @@ class Extension_builder_bridge extends Addon_builder_bridge {
 			$this->version		= constant(strtoupper($this->lower_name).'_VERSION');
 			$this->docs_url		= constant(strtoupper($this->lower_name).'_DOCS_URL');
 		}
+		
+		/** --------------------------------------------
+        /**  Extension Table Defaults
+        /** --------------------------------------------*/
+        
+         $this->extension_defaults = array(	
+											'class'        => $this->extension_name,
+											'settings'     => '',			
+											'priority'     => 10,                                        				
+											'version'      => $this->version,               				
+											'enabled'      => 'y'                                        				
+		);
 		
 		/** --------------------------------------------
 		/**  Default CP Variables
@@ -199,17 +220,23 @@ class Extension_builder_bridge extends Addon_builder_bridge {
         }
     	
     	/** --------------------------------------------
-        /**  Determine Existing Methods
+        /**  Determine Existing Methods. And, if $this->settings is empty retrieve and use
         /** --------------------------------------------*/
     	
     	$exists	= array();
     	
-    	$query	= ee()->db->query( "SELECT method FROM exp_extensions 
+    	$query	= ee()->db->query( "SELECT method".($this->settings == '' ? ', settings' : '')." FROM exp_extensions 
     						   		WHERE class = '".ee()->db->escape_str($this->extension_name)."'");
     	
     	foreach ( $query->result_array() AS $row )
     	{
     		$exists[] = $row['method'];
+    		
+    		if ($this->settings == '' && ! empty($row['settings']))
+    		{
+				ee()->load->helper('string');
+				$this->settings = strip_slashes(unserialize($row['settings']));
+    		}
     	}
     	
     	/** --------------------------------------------
@@ -220,11 +247,22 @@ class Extension_builder_bridge extends Addon_builder_bridge {
     	
     	foreach($this->hooks as $data)
     	{
+    		// Default exp_extension fields, overwrite with any from array
+    		$data = array_merge($this->extension_defaults, $data);
+    	
     		$current_methods[] = $data['method'];
     	
     		if ( ! in_array($data['method'], $exists))
     		{
     			$data['class'] = $this->extension_name;
+    			
+    			// Every so often, EE rather stupidly sends no $settings argument to the constructor, so
+    			// our new hooks will not have any settings, so we have to fix that here. Frustrating.
+    			if ($data['settings'] == '' OR $data['settings'] == 's:0:"";')
+    			{
+    				$data['settings'] = serialize($this->settings);
+    			}
+    			
 				ee()->db->query(ee()->db->insert_string('exp_extensions', $data));
     		}
     		else

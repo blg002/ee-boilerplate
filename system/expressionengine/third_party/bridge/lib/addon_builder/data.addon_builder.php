@@ -5,9 +5,9 @@
  *
  * @package		Bridge:Expansion
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/
- * @version		1.1.5
+ * @version		1.1.7
  * @filesource 	./system/bridge/
  * 
  */
@@ -20,7 +20,6 @@
  *
  * @package 	Bridge:Expansion
  * @subpackage	Add-On Builder
- * @category	Data
  * @author		Solspace DevTeam
  * @link		http://solspace.com/docs/
  * @filesource 	./system/bridge/lib/addon_builder/data.addon_builder.php

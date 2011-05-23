@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */
@@ -75,13 +75,14 @@ class Freeform_cp_base extends Module_builder_bridge {
 			),
 			'module_documentation'	=> array(	
 				'link'  => FREEFORM_DOCS_URL,
-				'title' => ee()->lang->line('documentation').
-						   '&nbsp;(<span style="font-size:11px">v.' . FREEFORM_VERSION . '</span>)'
+				'title' => ee()->lang->line('online_documentation') . 
+					((APP_VER < 2.0) ? ' (' . FREEFORM_VERSION . ')' : '')
 			)
 		);
         
+		$this->cached_vars['lang_module_version'] 	= ee()->lang->line('freeform_module_version');        
+		$this->cached_vars['module_version'] 		= FREEFORM_VERSION;
         $this->cached_vars['module_menu'] 			= $menu;
-
 		$this->cached_vars['js_magic_checkboxes']	= $this->js_magic_checkboxes();
 
 		//--------------------------------------
@@ -224,23 +225,22 @@ class Freeform_cp_base extends Module_builder_bridge {
 		
 		
 		// build crumb
-		$this->_build_right_link(
-			array(
-				'export_entries', 
-				'export_entries_csv'
-			),
-			array(
-				$this->base . 
-			 	AMP . 'method=export_entries'  . 
-			 	AMP . 'type=txt' . $form_name . 
-				$status . $show_empties,
-				
-				$this->base . 
-			 	AMP . 'method=export_entries_csv'  . 
-			 	$form_name . $status . $show_empties
-			)
+		$this->add_right_link(
+			ee()->lang->line('export_entries'), 
+			$this->base . 
+	 		AMP . 'method=export_entries'  . 
+	 		AMP . 'type=txt' . $form_name . 
+			$status . $show_empties
 		);
-	
+
+		$this->add_right_link(
+			ee()->lang->line('export_entries_csv'), 
+			$this->base . 
+		 	AMP . 'method=export_entries_csv'  . 
+		 	$form_name . $status . $show_empties
+		);
+
+		
 		//--------------------------------------
 		//  form data
 		//--------------------------------------
@@ -512,9 +512,15 @@ class Freeform_cp_base extends Module_builder_bridge {
 		//  right crumb
 		//--------------------------------------
 		
-		$this->_build_right_link(
-			array('create_new_field', 'edit_field_order'), 
-			array($this->base . AMP . 'method=edit_field_form', $this->base . AMP . 'method=field_order_form')
+		// build crumb
+		$this->add_right_link(
+			ee()->lang->line('create_new_field'), 
+			$this->base . AMP . 'method=edit_field_form'
+		);
+
+		$this->add_right_link(
+			ee()->lang->line('edit_field_order'), 
+			$this->base . AMP . 'method=field_order_form'
 		);
 		
 		//--------------------------------------
@@ -650,7 +656,10 @@ class Freeform_cp_base extends Module_builder_bridge {
 		//  right crumb
 		//--------------------------------------
 		
-		$this->_build_right_link('create_new_template', $this->base . AMP . 'method=edit_template_form');
+		$this->add_right_link(
+			ee()->lang->line('create_new_template'), 
+			$this->base . AMP . 'method=edit_template_form'
+		);
 		
 		//--------------------------------------
 		//  lang
@@ -1730,11 +1739,13 @@ class Freeform_cp_base extends Module_builder_bridge {
 			$data_from_email	= $query->row('data_from_email');
 			$data_title			= $query->row('data_title');
 			$template_data		= $query->row('template_data');
+			
 			if ( $query->row('wordwrap') AND $query->row('wordwrap') == 'y' )
 			{
 				$wordwrap_checked_y	= $checked;
 				$wordwrap_checked_n	= '';
 			}
+			
 			if ( $query->row('html') AND $query->row('html') == 'y' )
 			{
 				$html_checked_y		= $checked;
@@ -1746,12 +1757,12 @@ class Freeform_cp_base extends Module_builder_bridge {
 		//final data
 		$this->cached_vars['edit']					= $edit;			
  		$this->cached_vars['template_id']	        = $template_id;	
-		$this->cached_vars['data_from_name']	    = $data_from_name;	
+		$this->cached_vars['data_from_name']	    = htmlspecialchars($data_from_name, ENT_COMPAT, 'UTF-8');	
 		$this->cached_vars['data_from_email']       = $data_from_email;
-		$this->cached_vars['data_title']		    = $data_title;		
+		$this->cached_vars['data_title']		    = htmlspecialchars($data_title, ENT_COMPAT, 'UTF-8');		
  		$this->cached_vars['template_data']	        = form_prep($template_data);
  		$this->cached_vars['template_name']	        = $template_name;	
- 		$this->cached_vars['template_label']	    = $template_label;	
+ 		$this->cached_vars['template_label']	    = htmlspecialchars($template_label, ENT_COMPAT, 'UTF-8');	
  		$this->cached_vars['wordwrap']		        = $wordwrap;		
 		$this->cached_vars['vstr'] 			        = $vstr; 			
 		$this->cached_vars['highlight_vars']        = $highlight_vars;
@@ -2736,10 +2747,10 @@ class Freeform_cp_base extends Module_builder_bridge {
 		$data['wordwrap']			= ee()->input->post('wordwrap');
 		$data['html']				= ee()->input->post('html');
 		$data['template_name']		= ee()->input->post('template_name');
-		$data['template_label']		= ee()->input->post('template_label');
-		$data['data_from_name']		= ee()->input->post('data_from_name');
+		$data['template_label']		= htmlspecialchars_decode(ee()->input->post('template_label'));
+		$data['data_from_name']		= htmlspecialchars_decode(ee()->input->post('data_from_name'));
 		$data['data_from_email']	= ee()->input->post('data_from_email');
-		$data['data_title']			= ee()->input->post('data_title');
+		$data['data_title']			= htmlspecialchars_decode(ee()->input->post('data_title'));
 		$data['template_data']		= ee()->input->post('template_data');
 
 		if ( ee()->input->post('template_id') == '' )
@@ -2932,61 +2943,6 @@ class Freeform_cp_base extends Module_builder_bridge {
 	}
 	//END _sanitize_filename
 	
-	
-	//---------------------------------------------------------------------
-
-	/**
-	 * _build_right_link 
-	 * @access	public
-	 * @param	(string)	lang string
-	 * @param	(string)	html link for right link
-	 * @return	(null)
-	 */
-	
-	function _build_right_link($lang_line, $link)
-	{	
-		$msgs 		= array();
-		$links 		= array();
-		$ee2_links 	= array();
-		
-		if (is_array($lang_line))
-		{
-			for ($i = 0, $l= count($lang_line); $i < $l; $i++)
-			{
-				if (APP_VER < 2.0)
-				{
-					$msgs[$i]	= ee()->lang->line($lang_line[$i]);
-					$links[$i]	= $link[$i];
-				}
-				else
-				{
-					$ee2_links[$lang_line[$i]] = $link[$i];
-				}
-			} 
-		}
-		else
-		{
-			if (APP_VER < 2.0)
-			{
-				$msgs[]		= ee()->lang->line($lang_line);
-				$links[]	= $link;
-			}
-			else
-			{
-				$ee2_links[$lang_line] = $link;
-			}
-		}
-					
-		if (APP_VER < 2.0)
-		{
-			$this->cached_vars['right_crumb_msg']		= $msgs;
-			$this->cached_vars['right_crumb_link'] 		= $links;
-		}
-		else
-		{
-			ee()->cp->set_right_nav($ee2_links);
-		}
-	}
 }
 
 // END CLASS Freeform

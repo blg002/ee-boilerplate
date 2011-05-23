@@ -20,7 +20,7 @@
     <dc:date>{gmt_date format="%Y-%m-%dT%H:%i:%s%Q"}</dc:date>
     <admin:generatorAgent rdf:resource="http://expressionengine.com/" />
     
-{exp:channel:entries channel="{channel}" limit="10" dynamic_start="on" disable="{snip_disable_no_cat}"}
+{exp:channel:entries channel="{channel}" limit="10" dynamic_start="on" disable="{s_disable_no_cat}"}
     <item>
       <title><![CDATA[{title}]]></title>
       <link>{title_permalink='news/index'}</link>

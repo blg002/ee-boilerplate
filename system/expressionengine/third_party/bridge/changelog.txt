@@ -1,10 +1,26 @@
 Solspace - Bridge Expansion - Change Log
 
 
+1.1.7 (February 18, 2011)
+ - Added $this->extension_defaults to Extension Builder to faciliate more elegant code for using extension hooks in Add-ons.
+ - Added ee()->functions->encode_ee_tags() for EE 1.x
+ - Added ee()->config->site_prefs() for EE 1.x, specifically so Static Page Caching can use it.
+ - Added $this->check_captcha() to abstract the checking and deletion of CAPTCHA words.
+ - Moved version number to a constant, BRIDGE_VERSION.
+ - Fixed a bug with offset usage in universal pagination.
+
+1.1.6 (December 29, 2010)
+ - Added default class variables to Extension Builder so they are not required in child classes.
+ - Added new code to Extension Builder constructor to automate setting of class variables for name, label, docs, and version.
+ - Added new Addon_builder_parser class to Bridge for purposes of parsing strings as templates in EE 1.x and EE 2.x.
+ - Added sanitize_search_terms() method to Module Builder.
+ - Added add_right_link() and build_right_links() to automate creation of right menu links in both EE 1.x and EE 2.x.
+ - Fixed a bug in Extension Builder where new hooks might not have settings because EE does not always send $settings array.
+ 
 1.1.5 (December 13, 2010)
  - Added prepare_keyed_result() function to Bridge.
  - Added __call to data.addon_builder.php so functions can be called from AOB.
- - Ddded overwrite protection of cached variables for view files.
+ - Added overwrite protection of cached variables for view files.
  - Updated Bridge CodeIgniter to 1.7.3 security release.
  - Removed redundant functions from data.addon_builder.php.
  - Removed pass by reference calls where they weren't needed.

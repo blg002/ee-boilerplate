@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */
@@ -115,9 +115,12 @@ class Freeform_data extends Addon_builder_data_bridge {
 		$query = ee()->db->query($sql);
 		
 		//if no results, send defaults
-		if($query->num_rows() == 0)
+		//its ok to cache here as prefs would never be set mid page
+		if ($query->num_rows() == 0)
 		{
-			return $this->preference_defaults;	
+			$this->cached[$cache_name][$cache_hash] = $this->preference_defaults;
+			
+			return $this->cached[$cache_name][$cache_hash];	
 		}
 		
 		foreach($query->result_array() as $row)

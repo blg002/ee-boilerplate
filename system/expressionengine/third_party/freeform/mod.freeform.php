@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */
@@ -805,13 +805,7 @@ class Freeform extends Module_builder_bridge
 				$_POST[$val] = '';
 			}
         }        
-               
-        //	----------------------------------------
-        //	Fetch the freeform language pack
-        //	----------------------------------------
-        
-        ee()->lang->loadfile('freeform');        
-                
+      
         //	----------------------------------------
         //	Is the user banned?
         //	----------------------------------------
@@ -843,7 +837,8 @@ class Freeform extends Module_builder_bridge
         //	Blacklist/Whitelist Check
         //	----------------------------------------
         
-        if ($this->check_yes(ee()->blacklist->blacklisted) && $this->check_no(ee()->blacklist->whitelisted))
+        if ($this->check_yes(ee()->blacklist->blacklisted) AND 
+			$this->check_no(ee()->blacklist->whitelisted))
         {
         	return ee()->output->show_user_error('general', array(ee()->lang->line('not_authorized')));
         }
@@ -925,7 +920,8 @@ class Freeform extends Module_builder_bridge
 				
 				foreach ( $required_fields as $val )
 				{
-					if ( ! ee()->input->post($val) OR ee()->input->post($val) == '' )
+					//trimming bool FALSE results in a blank string, but just in case
+					if ( in_array(trim(ee()->input->post($val)), array(FALSE, ''), TRUE) )
 					{
 						if (array_key_exists($val, $labels))
 						{
@@ -986,16 +982,7 @@ class Freeform extends Module_builder_bridge
 				}
 			}
         }
-        
-		//	----------------------------------------
-		//	Are we trying to accept file uploads?
-		//	----------------------------------------
-        
-        if ( $this->_param('file_upload') != '' AND $this->upload_limit = $this->_param('upload_limit') )
-        {
-        	$this->_upload_files( TRUE );
-        }
-		
+        		
 		//	----------------------------------------
 		//	'freeform_module_validate_end' hook.
 		//	 - This allows developers to do more form validation.
@@ -1147,24 +1134,23 @@ class Freeform extends Module_builder_bridge
 			
         	if ( in_array( $key, $exclude ) ) continue;
         	
+
         	if ( $key == 'website' )
         	{
-        		ee()->security->xss_clean( prep_url( ee()->input->post('website') ) );
+        		$data[$key]	= ee()->security->xss_clean( prep_url( ee()->input->post($key) ) );
         		
-        		$data[$key]	= ee()->input->post($key);
+				continue;
+
+        		//$data[$key]	= ee()->input->post($key);
         	}
         	
 			// If the field is a multi-select field, then handle it as such.
 			if ( is_array( $val ) )
 			{
 				$val = implode( "\n", $val );
-				
-				$data[$key] = ee()->security->xss_clean($val);
 			}
-			else
-			{
-				$data[$key] = ee()->security->xss_clean($val);
-			}
+
+			$data[$key] = ee()->security->xss_clean($val);
         }
 		
 		//backup for form name in case it isnt in the post data
@@ -1195,6 +1181,15 @@ class Freeform extends Module_builder_bridge
 			$data = ee()->extensions->universal_call('freeform_module_insert_begin', $data);
 			if (ee()->extensions->end_script === TRUE) return;
 		}
+
+		//	----------------------------------------
+		//	Are we trying to accept file uploads?
+		//	----------------------------------------
+        
+        if ( $this->_param('file_upload') != '' AND $this->upload_limit = $this->_param('upload_limit') )
+        {
+        	$this->_upload_files( TRUE );
+        }
         
 		//	------------------------------------------------------------------------------------
       	//  Discarded data email_change
@@ -3926,7 +3921,7 @@ class Freeform extends Module_builder_bridge
 		$extension	= '.' . end($x);
 		$name		= str_replace($extension, '', $file_name);
 		
-		$this->upload_config['file_name'] = (APP_VER < 2.0) ? $name : $file_name; 
+		$this->upload_config['file_name'] = $file_name; 
 
 		ee()->upload->initialize($this->upload_config);
 

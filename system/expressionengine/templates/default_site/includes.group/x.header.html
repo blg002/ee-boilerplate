@@ -1,5 +1,7 @@
 <!doctype html>
-<html>
+<!--[if IE 7]><html id="company-org" class="no-js ie7" lang="en-US"><![endif]-->
+<!--[if IE 8]><html id="company-org" class="no-js ie8" lang="en-US"><![endif]-->
+<!--[if gt IE 8]><!--><html id="company-org" class="no-js" lang="en-US"> <!--<![endif]-->
 <head>
 <meta charset="utf-8" />
 
@@ -7,6 +9,7 @@
 
 <!-- gist.github.com/581868 -->
 {if segment_1 == "contact"}<meta name="robots" content="noindex" />{/if}
+{if embed:nofindex == "true"}<meta name="robots" content="noindex,follow" />{/if}
 
 <link href="{path='stylesheets/styles'}" rel="stylesheet" />
 <link href="{stylesheet=stylesheets/print}" rel="stylesheet" media="print" />
@@ -17,7 +20,7 @@
 <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
 </head>
 
-<body id="{if segment_1}{segment_1}{if:else}home{/if}"{if segment_1} class="subpage"{/if} lang="en-US">
+<body id="{if segment_1}{segment_1}{if:else}home{/if}"{if segment_1} class="subpage"{/if}>
 {if logged_in && member_group == "1"}<div style="position:absolute;top:0;left:0;position:fixed;background-color:#000;color:#fff; font-size:9px;padding:5px;">{elapsed_time} seconds / {total_queries} queries</div>{/if}
 
 <ul id="skiplinks">

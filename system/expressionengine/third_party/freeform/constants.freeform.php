@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */
@@ -24,8 +24,6 @@
  
 if ( ! defined('FREEFORM_VERSION'))
 {
-	define('FREEFORM_VERSION',	'3.0.5');
+	define('FREEFORM_VERSION',	'3.0.6');
 	define('FREEFORM_DOCS_URL',	'http://www.solspace.com/docs/addon/c/Freeform/');
 }
-
-?>

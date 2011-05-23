@@ -12,6 +12,12 @@ $lang = $L = array(
 "freeform_module_description" =>
 "Open-ended form engine",
 
+"freeform_module_version" =>
+"Freeform Module Version",
+
+"online_documentation" =>
+"Online Documentation",
+
 // 	----------------------------------------
 // 	Language for Home
 // 	----------------------------------------

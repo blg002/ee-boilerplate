@@ -16,14 +16,13 @@ These files can be found at <code><a href="https://github.com/blg002/ee-framewor
 * [Matrix](http://devot-ee.com/add-ons/matrix/) ($55)
 * [Playa](http://devot-ee.com/add-ons/playa/) ($75)
 * [Low Reorder](http://devot-ee.com/add-ons/low-reorder/) ($16)
-* [Missing Link](http://devot-ee.com/add-ons/missing-link/) (Whatever £10 equates to in dollars)
 * [NSM Override CSS](http://devot-ee.com/add-ons/nsm-override-css/) ($20)
+* [CE Image](http://devot-ee.com/add-ons/ce-image/) ($8)
 
 ### Free!
 * [Freeform](http://devot-ee.com/add-ons/freeform/)
 * [Spam-Freeform](http://devot-ee.com/add-ons/spam-freeform/)
 * [Low Seg2Cat](http://devot-ee.com/add-ons/low-seg2cat/)
-* [Image Sizer](http://devot-ee.com/add-ons/image-sizer/) — a more robust option is [CE Image](http://devot-ee.com/add-ons/ce-image/) ($8)
 * [REElocate](http://devot-ee.com/add-ons/reelocate/)
 * [Find and Replace](http://devot-ee.com/add-ons/find-and-replace/)
 * [MX Title Control](http://devot-ee.com/add-ons/mx-title-control/)
@@ -33,9 +32,7 @@ These files can be found at <code><a href="https://github.com/blg002/ee-framewor
 * [NSM Addon Updater](http://devot-ee.com/add-ons/lg-addon-updater/)
 * [Solspace Update Advisor](http://devot-ee.com/add-ons/solspace-update-advisor/)
 * [CP Analytics](http://devot-ee.com/add-ons/cp-analytics/)
-* [Usability](http://devot-ee.com/add-ons/usability/)
-* [Draggable](http://devot-ee.com/add-ons/draggable/)
-* [NSM Morphine Theme](http://ee-garage.com/nsm-morphine-cp-theme/)
+* [REElocate](http://devot-ee.com/add-ons/reelocate/)
 
 ## Settings
 TO DO

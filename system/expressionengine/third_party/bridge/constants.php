@@ -5,9 +5,9 @@
  *
  * @package		Bridge:Expansion
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/
- * @version		1.1.5
+ * @version		1.1.7
  * @filesource 	./system/bridge/
  * 
  */
@@ -16,7 +16,6 @@
  * Add-On Builder - Constants
  *
  * @package 	Bridge:Expansion
- * @category	Constants
  * @author		Solspace DevTeam
  * @link		http://solspace.com/docs/
  * @filesource 	./system/bridge/constants.php
@@ -30,6 +29,8 @@ else
 {
 	define('PATH_BRIDGE', PATH_THIRD . 'bridge/');
 }
+
+define('BRIDGE_VERSION', '1.1.7');
 
 // --------------------------------------------------------------------
 

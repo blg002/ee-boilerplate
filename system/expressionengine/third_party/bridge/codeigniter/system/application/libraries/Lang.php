@@ -29,6 +29,9 @@ class CI_Lang
 {
 	var $language	= array();
 	var $is_loaded	= array();
+	
+	var $ci_load	= FALSE; // Required because Session class extensions will cause inadequate loading
+							 // of the EE 1.x Language Variables in Bridge's CI Lang class.
 		
 	/**
 	 * Constructor
@@ -38,6 +41,7 @@ class CI_Lang
 		if ( isset($GLOBALS['LANG'], $GLOBALS['LANG']->language) && is_array($GLOBALS['LANG']->language))
 		{
 			$this->language = $GLOBALS['LANG']->language;
+			$this->ci_load = TRUE;
 		}
 	}
 	
@@ -56,6 +60,12 @@ class CI_Lang
 		if ($which == '')
 		{
 			return;
+		}
+		
+		if ( $this->ci_load === FALSE && isset($GLOBALS['LANG'], $GLOBALS['LANG']->language) && is_array($GLOBALS['LANG']->language))
+		{
+			$GLOBALS['LANG']->language = $this->language = array_merge($GLOBALS['LANG']->language, $this->language);
+			$this->ci_load = TRUE;
 		}
 		
 		if (in_array($which, $this->is_loaded, TRUE))
@@ -170,7 +180,7 @@ class CI_Lang
 		return stripslashes($line);
 	}
 	
-		// --------------------------------------------------------------------
+	// --------------------------------------------------------------------
 
 	/**
 	 * Load a language file

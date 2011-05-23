@@ -118,24 +118,7 @@ else
 // define('FCPATH', str_replace(SELF, '', __FILE__));
 
 define('BASEPATH', $system_folder.'/');
-
-/*
-//removed this conditional because we are not going to change our structure
-//there for the first check is somwhat useless, and dangerous.
-
-if (is_dir($application_folder))
-{
-	define('APPPATH', $application_folder.'/');
-}
-else
-{
-if ($application_folder == '')
-{
-	$application_folder = 'application';
-}
-*/
 define('APPPATH', BASEPATH.$application_folder.'/');
-/*}*/
 
 /*
 |---------------------------------------------------------------

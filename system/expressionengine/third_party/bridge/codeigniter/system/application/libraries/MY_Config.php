@@ -64,7 +64,30 @@ class MY_Config extends CI_Config {
 			}
 		}	
 	}
+	
+	
+	// --------------------------------------------------------------------
 
+	/**
+	 * Site Preferences
+	 *
+	 * This function lets us retrieve Multi-site Manager configuration 
+	 * items from the database
+	 *
+	 * @access	public
+	 * @param	string	Name of the site
+	 * @param	int		ID of the site
+	 * @return	void
+	 */
+	function site_prefs($site_name, $site_id = 1)
+	{
+		global $PREFS;
+		
+		return $PREFS->site_prefs($site_name, $site_id);
+	}
+	/* END site_prefs() */
+	
+	// --------------------------------------------------------------------
 
 }
 

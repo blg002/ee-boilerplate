@@ -44,6 +44,25 @@ class CI_Functions extends Functions {
 	
 	
 	// --------------------------------------------------------------------
+
+	/**
+	 * Convert EE Tags to Entities
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	bool
+	 * @return	string
+	 */
+	function encode_ee_tags($str, $convert_curly = FALSE)
+	{
+		global $REGX;
+		
+		return $REGX->encode_ee_tags($str, $convert_curly);
+	}
+	/* END encode_ee_tags() */
+
+
+	// --------------------------------------------------------------------
 		
 	/**
 	 * Fetch allowed channels

@@ -5,9 +5,9 @@
  *
  * @package		Bridge:Expansion
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/
- * @version		1.1.5
+ * @version		1.1.7
  * @filesource 	./system/bridge/
  * 
  */
@@ -20,7 +20,6 @@
  *
  * @package 	Bridge:Expansion
  * @subpackage	Add-On Builder
- * @category	Modules
  * @author		Solspace DevTeam
  * @link		http://solspace.com/docs/
  * @filesource 	./system/bridge/lib/addon_builder/module_builder.php
@@ -37,10 +36,11 @@ else
 
 class Module_builder_bridge extends Addon_builder_bridge {
 
-	var $module_actions	= array();
-	var $hooks			= array();
+	public $module_actions		= array();
+	public $hooks				= array();
+	public $extension_defaults	= array();	// Defaults for the exp_extensions fields
 	
-	var $base			= '';
+	public $base				= '';
     
     // --------------------------------------------------------------------
 
@@ -82,7 +82,8 @@ class Module_builder_bridge extends Addon_builder_bridge {
 			$this->cached_vars['onload_events']  = '';
 			
 			$this->cached_vars['module_menu'] = array();
-			$this->cached_vars['module_menu_highlight'] = '';
+			$this->cached_vars['module_menu_highlight'] = 'module_home';
+			$this->cached_vars['module_version'] 		= $this->version;
 			
 			/** --------------------------------------------
 			/**  Default Crumbs for Module
@@ -324,6 +325,18 @@ class Module_builder_bridge extends Addon_builder_bridge {
     	}
     	
     	/** --------------------------------------------
+        /**  Extension Table Defaults
+        /** --------------------------------------------*/
+        
+         $this->extension_defaults = array(	
+											'class'        => $this->extension_name,
+											'settings'     => '',			
+											'priority'     => 10,                                        				
+											'version'      => $this->version,               				
+											'enabled'      => 'y'                                        				
+		);
+    	
+    	/** --------------------------------------------
         /**  Find Missing and Insert
         /** --------------------------------------------*/
         
@@ -331,6 +344,9 @@ class Module_builder_bridge extends Addon_builder_bridge {
     	
     	foreach($this->hooks as $data)
     	{
+    		// Default exp_extension fields, overwrite with any from array
+    		$data = array_merge($this->extension_defaults, $data);
+    	
     		$current_methods[] = $data['method'];
     	
     		if ( ! in_array($data['method'], $exists))
@@ -456,6 +472,34 @@ class Module_builder_bridge extends Addon_builder_bridge {
 		}
     }
     /* END no_results() */
+    
+    // ------------------------------------------------------------------------
+
+/**
+ * Sanitize Search Terms
+ *
+ * Filters a search string for security
+ *
+ * @access	public
+ * @param	string
+ * @return	string
+ */	
+	public function sanitize_search_terms($str)
+	{	
+		if (APP_VER < 2.0)
+		{
+			global $REGX;
+			
+			return $REGX->keyword_clean($str);
+		}
+		else
+		{
+			ee()->load->helper('search');
+			
+			return sanitize_search_terms($str);
+		}
+	}
+	/* END sanitize_search_terms() */
     
 }
 /* END Module_builder Class */

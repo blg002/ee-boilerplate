@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */

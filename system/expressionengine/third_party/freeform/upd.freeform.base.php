@@ -5,9 +5,9 @@
  *
  * @package		Solspace:Freeform
  * @author		Solspace DevTeam
- * @copyright	Copyright (c) 2008-2010, Solspace, Inc.
+ * @copyright	Copyright (c) 2008-2011, Solspace, Inc.
  * @link		http://solspace.com/docs/addon/c/Freeform/
- * @version		3.0.5
+ * @version		3.0.6
  * @filesource 	./system/modules/freeform/
  * 
  */
@@ -389,8 +389,10 @@ Entry Date: {entry_date}
 			//	Validate template_name
 			if ( $row['Field'] == 'template_name' AND $row['Type'] != 'varchar(150)' )
 			{
-				ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-									   MODIFY 		template_name varchar(150) NOT NULL default '0'" );
+				ee()->db->query( 
+					"ALTER TABLE 	exp_freeform_templates 
+				     MODIFY 		template_name varchar(150) NOT NULL default '0'" 
+				);
 			}
 		
 			switch( $row['Field'] )
@@ -430,9 +432,11 @@ Entry Date: {entry_date}
 	
 		if ( ! $template_label )
 		{
-			ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-								   ADD 			template_label varchar(150) NOT NULL 
-								   AFTER 		template_name" );
+			ee()->db->query( 
+				"ALTER TABLE 	exp_freeform_templates 
+				 ADD 			template_label varchar(150) NOT NULL 
+				 AFTER 			template_name" 
+			);
 
 			ee()->db->query( 
 				ee()->db->update_string( 
@@ -446,30 +450,38 @@ Entry Date: {entry_date}
 		//	Add in missing columns
 		if ( ! $html )
 		{
-			ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-					   			   ADD 			html char(1) NOT NULL default 'n' 
-					   			   AFTER 		wordwrap");
+			ee()->db->query( 
+				"ALTER TABLE 	exp_freeform_templates 
+				 ADD 			html char(1) NOT NULL default 'n' 
+				 AFTER 			wordwrap"
+			);
 		}
 	
 		if ( ! $data_from_email )
 		{
-			ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-								   ADD 			data_from_email varchar(200) NOT NULL 
-								   AFTER 		template_label" );
+			ee()->db->query( 
+				"ALTER TABLE 	exp_freeform_templates 
+				 ADD 			data_from_email varchar(200) NOT NULL 
+				 AFTER 			template_label" 
+			);
 		}
 	
 		if ( ! $data_from_name )
 		{
-			ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-								   ADD 			data_from_name varchar(150) NOT NULL 
-								   AFTER 		template_label" );
+			ee()->db->query( 
+				"ALTER TABLE 	exp_freeform_templates 
+				 ADD 			data_from_name varchar(150) NOT NULL 
+				 AFTER 			template_label" 
+			);
 		}
 	
 		if ( ! $wordwrap )
 		{
-			ee()->db->query( "ALTER TABLE 	exp_freeform_templates 
-								   ADD 			wordwrap char(1) NOT NULL default 'y' 
-								   AFTER 		enable_template" );
+			ee()->db->query( 
+				"ALTER TABLE 	exp_freeform_templates 
+				 ADD 			wordwrap char(1) NOT NULL default 'y' 
+				 AFTER 			enable_template" 
+			);
 		}
 	
 		//	Update default just in case
